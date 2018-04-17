@@ -76,16 +76,8 @@
             ],
             "modules": [
                 {
-                    "name": "AzureRm.Compute",
-                    "url": "https://devopsgallerystorage.blob.core.windows.net/packages/azurerm.compute.2.8.0.nupkg"
-                },
-                {
                     "name": "AzureRm.Resources",
                     "url": "https://devopsgallerystorage.blob.core.windows.net/packages/azurerm.resources.3.7.0.nupkg"
-                },
-                {
-                    "name": "AzureRm.Network",
-                    "url": "https://devopsgallerystorage.blob.core.windows.net/packages/azurerm.network.3.6.0.nupkg"
                 },
                 {
                     "name": "AzureRm.Automation",
