@@ -17,19 +17,20 @@
 
 
     .PARAMETER ResourceGroup
-        Name of the resource group containing the ASR vault.
+        Name of the resource group containing the ASR vault. If not supplied, the automation
+        variable "NeonDefaultResourceGroup" is used.
 
     .PARAMETER Vault
-        Name of the vault
+        Name of the vault. If not supplied, the automation variable "NeonDefaultVault" is used.
 
     .PARAMETER RecoveryPlanName
         Name of the recovery plan. If supplied, the IP addresses of all protected VMs in the 
         recovery plan are migrated.
-        N.B. Either the RecoveryPlanName or VmName must be supplied.
+        N.B. Either RecoveryPlanName or VmName must be supplied.
 
     .PARAMETER VmName
         Name of the VM. If supplied, the IP addresses of the VM are migrated.
-        N.B. Either the RecoveryPlanName or VmName must be supplied.
+        N.B. Either RecoveryPlanName or VmName must be supplied.
 #>
 
 Param(
@@ -52,6 +53,16 @@ Try {
 # Get Neon access key and secret from automation variables.
 $neonAccessKeyId = Get-AutomationVariable -Name NeonAccessKeyId
 $neonAccessSecret = Get-AutomationVariable -Name NeonAccessSecret
+
+# Get resource group and vault from automation variables if not supplied
+# as parameters.
+if (!$ResourceGroup) {
+    $ResourceGroup = Get-AutomationVariable -Name NeonDefaultResourceGroup
+}
+
+if (!$Vault) {
+    $Vault = Get-AutomationVariable -Name NeonDefaultVault
+}
 
 # Validate required parameters.
 if (!$neonAccessKeyId -or !$neonAccessSecret -or !$ResourceGroup -or !$Vault) {
