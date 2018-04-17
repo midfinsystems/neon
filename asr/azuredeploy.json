@@ -54,7 +54,7 @@
             "runbooks": [
                 {
                     "name": "NeonClient",
-                    "url": "[concat(parameters('_artifactsLocation'), '/scripts/ASR-NeonClient.ps1', parameters('_artifactsLocationSasToken'))]",
+                    "url": "[concat(parameters('_artifactsLocation'), '/scripts/NeonClient.ps1', parameters('_artifactsLocationSasToken'))]",
                     "version": "1.0.0.0",
                     "type": "PowerShell",
                     "description": "Script to make API calls to Neon."
