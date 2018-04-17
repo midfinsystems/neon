@@ -150,19 +150,18 @@ function MigrateIPs {
                 $nicEndpoints += @{ip = $ip; mac = $nic.nicId}
             }
             
+            # Lookup network and cloud gateway based on subnet.
+            if (!$networkMap.ContainsKey($subnet) -or !$cgwMap.ContainsKey($subnet)) {
+                throw "VM '$($vm.Properties.providerSpecificDetails.recoveryAzureVMName)' NIC '$($nic.NicId)' has been assigned a subnet '$subnet' that does not exist in Neon. Please check that the VM's vnet and subnet has been assigned correctly."
+            }
+
             # ASR API only allows setting one IP address for a NIC.
             if ($nicEndpoints.Length -gt 0) {
                 $nic.replicaNicStaticIPAddress = $nicEndpoints[0].ip
-             }
-
-            # Lookup network and cloud gateway based on subnet.
-            if (!$networkMap.ContainsKey($subnet) -or !$cgwMap.ContainsKey($subnet)) {
-                Write-Output "Subnet $subnet not found, skipping VM $($vm.Properties.providerSpecificDetails.recoverAzureVMName)"
-                continue
             }
 
-            # If there is already an update object for this subnet, add the endpoints to the update object. Otherwise
-            # create a new update object.
+            # If there is already an update object for this subnet, add the endpoints to the 
+            # update object. Otherwise create a new update object.
             $network = $networkMap[$subnet]
             $cgw = $cgwMap[$subnet]
             if (!$updates.ContainsKey($network.network_id)) {
