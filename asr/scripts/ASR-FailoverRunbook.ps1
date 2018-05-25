@@ -25,14 +25,12 @@
 
     .PARAMETER RecoveryPlanName
         Name of the recovery plan. If supplied, the IP addresses of all protected VMs in the 
-        recovery plan are migrated. If not supplied, the automation variable 
-        "NeonDefaultRecoveryPlanName" is used. N.B. Either RecoveryPlanName or VmName must be 
-        specified as either input parameters or automation variables.
+        recovery plan are migrated.
+        N.B. Either RecoveryPlanName or VmName must be supplied
 
     .PARAMETER VmName
-        Name of the VM. If supplied, the IP addresses of the VM are migrated. If not supplied, 
-        the automation variable "NeonDefaultVmName" is used. N.B. Either RecoveryPlanName or 
-        VmName as either input parameters or automation variables.
+        Name of the VM. If supplied, the IP addresses of the VM are migrated. 
+        N.B. Either RecoveryPlanName or VmName must be supplied
 #>
 
 Param(
@@ -63,14 +61,6 @@ if (!$ResourceGroup) {
 
 if (!$Vault) {
     $Vault = Get-AutomationVariable -Name NeonDefaultVault
-}
-
-if (!$RecoveryPlanName) {
-    $RecoveryPlanName = Get-AutomationVariable -Name NeonDefaultRecoveryPlanName
-}
-
-if (!$VmName) {
-    $VmName = Get-AutomationVariable -Name NeonDefaultVmName
 }
 
 # Validate required parameters.
